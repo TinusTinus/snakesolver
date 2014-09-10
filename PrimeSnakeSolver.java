@@ -1,3 +1,4 @@
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,7 +15,7 @@ public class PrimeSnakeSolver extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	// Adjust to see more detail
-	private static final int ZOOM = 5;
+	private static final int ZOOM = 10;
 	
 	// Set to true to print more information
 	private final boolean DEBUG = false;
@@ -113,12 +114,17 @@ public class PrimeSnakeSolver extends JPanel {
 		for (int i = 0; i < snake.allLocations.size() - 1; i++) {
 			Coordinate c1 = snake.allLocations.get(i);
 			Coordinate c2 = snake.allLocations.get(i + 1);
+			g2d.setStroke(new BasicStroke(4));
 			g2d.drawLine(
 					cx + (c1.x * ZOOM), 
 					cy + (c1.y * ZOOM), 
 					cx + (c2.x * ZOOM), 
 					cy + (c2.y * ZOOM));
 		}
+
+		// Show origin
+		g2d.setColor(Color.RED);
+		g2d.drawRect(cx - 1, cy - 1, 1, 1);
 	}
 
 	/**
