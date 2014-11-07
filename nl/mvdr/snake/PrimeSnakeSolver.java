@@ -19,7 +19,7 @@ public class PrimeSnakeSolver extends JPanel {
 	private static final int ZOOM = 10;
 	
 	// Set to true to print more information
-	private final boolean DEBUG = false;
+	final boolean DEBUG = false;
 	
 	public static void main(String[] args) {
 
@@ -41,7 +41,7 @@ public class PrimeSnakeSolver extends JPanel {
 		// solver.solve("?", 5000);
 	}
 	
-	private Snake snake = new Snake();
+	private Snake snake = new Snake(this);
 
 	private void solve(String solution, int snakeLength) {
 		
@@ -126,115 +126,6 @@ public class PrimeSnakeSolver extends JPanel {
 		// Show origin
 		g2d.setColor(Color.RED);
 		g2d.drawRect(cx - 1, cy - 1, 1, 1);
-	}
-
-	/**
-	 * Store the state of the snake
-	 */
-	private class Snake {
-
-		private final int LEFT = -1;
-		private final int RIGHT = 1;
-		
-		private Coordinate[] DIRECTIONS = new Coordinate[] {
-				new Coordinate(0, -1), // North 
-				new Coordinate(1, 0),  // East
-				new Coordinate(0, 1),  // South
-				new Coordinate(-1, 0)  // West
-		};
-
-		// Our current heading (pointer into DIRECTIONS array), start going north
-		private int currentHeading = 0;
-		
-		// Our current location:
-		private Coordinate currentLocation = new Coordinate(0, 0);
-		
-		// All the previously visited locations:
-		private List<Coordinate> allLocations = new ArrayList<Coordinate>();
-
-		public Snake() {
-			//Add initial position:
-			allLocations.add(currentLocation);
-			
-			if(DEBUG) {
-				System.out.println(currentLocation + " <- start");
-			}
-		}
-
-		/**
-		 * Take N steps in the current direction
-		 */
-		private void step(int length) {
-			if(DEBUG) {
-				System.out.println("Take steps: " + length);
-			}
-			
-			for (int i = 0; i < length; i++) {
-				
-				// New location:
-				currentLocation = new Coordinate(
-						currentLocation.x + DIRECTIONS[currentHeading].x,
-						currentLocation.y + DIRECTIONS[currentHeading].y);
-				
-				if(DEBUG) {
-					System.out.println(currentLocation);
-				}
-				
-				// Check if there is a crossing (slow method, going through a list)
-				if (allLocations.contains(currentLocation)) {
-					if(DEBUG) {
-						System.out.println("Oh no, a crossing!");
-						System.out.println("This is the path: ");
-						System.out.println(allLocations);
-					}
-					throw new IllegalArgumentException("Crossing detected at: "
-							+ currentLocation + " after "
-							+ allLocations.size() + " steps");
-				}
-				allLocations.add(currentLocation);
-			}
-		}
-
-		/**
-		 * Turn the snake [L]eft or [R]ight
-		 * 
-		 * @param L or R
-		 */
-		private void turn(char direction) {
-			if(DEBUG) {
-				System.out.println("Turn " + direction);
-			}
-			if (direction == 'L') {
-				currentHeading = (4 + (currentHeading + LEFT)) % 4;
-			} else {
-				currentHeading = (currentHeading + RIGHT) % 4;
-			}
-		}
-	}
-
-	private class Coordinate {
-
-		private int x;
-		private int y;
-
-		public Coordinate(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-
-		@Override
-		public String toString() {
-			return "(" + x + "," + y + ")";
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (!(obj instanceof Coordinate)) {
-				return false;
-			}
-			Coordinate other = (Coordinate) obj;
-			return other.x == x && other.y == y;
-		}
 	}
 
 	/**
