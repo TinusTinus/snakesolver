@@ -25,7 +25,7 @@ public class Solver {
         // Validate length:
         if (input.length != primeGaps.size()) {
             throw new IllegalArgumentException("Size of steps doesn't match, " + primeGaps.size()
-                    + " steps expected but " + input.length + " received");
+                    + " steps expected but " + input.length + " received (" + solution + ")");
         }
 
         // Apply input solution to the snake:
