@@ -91,4 +91,16 @@ public class Snake {
             currentHeading = (currentHeading + RIGHT) % 4;
         }
     }
+    
+    /** @return size of the snake's bounding square */
+    public int computeScore() {
+        int xmin = 0, ymin = 0, xmax = 0, ymax = 0;
+        for (Coordinate coordinate : allLocations) {
+            xmax = Math.max(xmax, coordinate.getX());
+            xmin = Math.min(xmin, coordinate.getX());
+            ymax = Math.max(ymax, coordinate.getY());
+            ymin = Math.min(ymin, coordinate.getY());
+        }
+        return Math.max(xmax - xmin, ymax - ymin);
+    }
 }
