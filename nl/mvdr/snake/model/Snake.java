@@ -10,15 +10,8 @@ public class Snake {
     private final int LEFT = -1;
     private final int RIGHT = 1;
 
-    private Point[] DIRECTIONS = new Point[] {
-            new Point(0, -1), // North
-            new Point(1, 0), // East
-            new Point(0, 1), // South
-            new Point(-1, 0) // West
-    };
-
     /** Our current heading (pointer into DIRECTIONS array), start going north. */
-    private int currentHeading = 0;
+    private Direction currentHeading = Direction.NORTH;
 
     /** Our current location. */
     private Point currentLocation = new Point(0, 0);
@@ -54,8 +47,8 @@ public class Snake {
         for (int i = 0; i < length; i++) {
 
             // New location:
-            currentLocation = new Point(currentLocation.getX() + DIRECTIONS[currentHeading].getX(),
-                    currentLocation.getY() + DIRECTIONS[currentHeading].getY());
+            currentLocation = new Point(currentLocation.getX() + currentHeading.getPoint().getX(),
+                    currentLocation.getY() + currentHeading.getPoint().getY());
 
             if (Logging.DEBUG) {
                 System.out.println(currentLocation);
@@ -86,9 +79,9 @@ public class Snake {
             System.out.println("Turn " + direction);
         }
         if (direction == 'L') {
-            currentHeading = (4 + (currentHeading + LEFT)) % 4;
+            currentHeading = currentHeading.turnLeft();
         } else {
-            currentHeading = (currentHeading + RIGHT) % 4;
+            currentHeading = currentHeading.turnRight();
         }
     }
     
