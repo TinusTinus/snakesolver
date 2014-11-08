@@ -2,11 +2,17 @@ package nl.mvdr.snake.model;
 
 /** A pair of coordinates. */
 public class Point {
-    /** X coordinate. */
+    /** Horizontal coordinate. */
     private final int x;
-    /** Y coordinate. */
+    /** Vertical coordinate. */
     private final int y;
 
+    /**
+     * Constructor.
+     * 
+     * @param x horizontal coordinate
+     * @param y vertical coordinate
+     */
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
@@ -32,5 +38,16 @@ public class Point {
 
     public int getY() {
         return y;
+    }
+    
+    /**
+     * Moves a single step in the given direction.
+     * 
+     * @param direction direction to move
+     * @return translated point
+     */
+    public Point move(Direction direction) {
+        return new Point (x + direction.getPoint().getX(), 
+                y + direction.getPoint().getY());
     }
 }

@@ -7,9 +7,6 @@ import nl.mvdr.snake.util.Logging;
 
 /** Store the state of the snake. */
 public class Snake {
-    private final int LEFT = -1;
-    private final int RIGHT = 1;
-
     /** Our current heading (pointer into DIRECTIONS array), start going north. */
     private Direction currentHeading = Direction.NORTH;
 
@@ -47,8 +44,7 @@ public class Snake {
         for (int i = 0; i < length; i++) {
 
             // New location:
-            currentLocation = new Point(currentLocation.getX() + currentHeading.getPoint().getX(),
-                    currentLocation.getY() + currentHeading.getPoint().getY());
+            currentLocation = currentLocation.move(currentHeading);
 
             if (Logging.DEBUG) {
                 System.out.println(currentLocation);

@@ -15,6 +15,7 @@ public enum Direction {
     /** West. */
     WEST(new Point(-1, 0));
     
+    /** Point defining a single step in the given direction. */
     private final Point point;
     
     public Point getPoint() {
@@ -24,7 +25,7 @@ public enum Direction {
     /**
      * Constructor.
      * 
-     * @param point point
+     * @param point point defining a single step in the given direction
      */
     private Direction(Point point) {
         this.point = point;
