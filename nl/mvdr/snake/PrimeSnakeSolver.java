@@ -12,11 +12,8 @@ import nl.mvdr.snake.ui.SnakePanel;
 /** Main class. */
 public class PrimeSnakeSolver {
 
-    /** Set to true to print more information. */
-    private final boolean DEBUG = false;
-
     /** Snake to be solved. */
-    private final Snake snake = new Snake(DEBUG);
+    private final Snake snake = new Snake();
 
     public static void main(String[] args) {
         PrimeSnakeSolver solver = new PrimeSnakeSolver();

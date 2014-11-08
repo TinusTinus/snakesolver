@@ -3,11 +3,10 @@ package nl.mvdr.snake.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.mvdr.snake.util.Logging;
+
 /** Store the state of the snake. */
 public class Snake {
-    /** Indicates whether debug logging is enabled. */
-    private final boolean debug;
-
     private final int LEFT = -1;
     private final int RIGHT = 1;
 
@@ -31,19 +30,12 @@ public class Snake {
         return allLocations;
     }
 
-    /**
-     * Constructor.
-     * 
-     * @param debug
-     *            whether debug logging is enabled
-     */
-    public Snake(boolean debug) {
-        this.debug = debug;
-
+    /** Constructor. */
+    public Snake() {
         // Add initial position:
         allLocations.add(currentLocation);
 
-        if (debug) {
+        if (Logging.DEBUG) {
             System.out.println(currentLocation + " <- start");
         }
     }
@@ -55,7 +47,7 @@ public class Snake {
      *            number of steps to be taken
      */
     public void step(int length) {
-        if (debug) {
+        if (Logging.DEBUG) {
             System.out.println("Take steps: " + length);
         }
 
@@ -65,13 +57,13 @@ public class Snake {
             currentLocation = new Coordinate(currentLocation.getX() + DIRECTIONS[currentHeading].getX(),
                     currentLocation.getY() + DIRECTIONS[currentHeading].getY());
 
-            if (debug) {
+            if (Logging.DEBUG) {
                 System.out.println(currentLocation);
             }
 
             // Check if there is a crossing (slow method, going through a list)
             if (allLocations.contains(currentLocation)) {
-                if (debug) {
+                if (Logging.DEBUG) {
                     System.out.println("Oh no, a crossing!");
                     System.out.println("This is the path: ");
                     System.out.println(allLocations);
@@ -90,7 +82,7 @@ public class Snake {
      *            or R
      */
     public void turn(char direction) {
-        if (debug) {
+        if (Logging.DEBUG) {
             System.out.println("Turn " + direction);
         }
         if (direction == 'L') {
