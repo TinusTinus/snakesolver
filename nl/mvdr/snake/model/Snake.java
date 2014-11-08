@@ -53,7 +53,6 @@ public class Snake {
      *            number of steps to be taken
      */
     private void step() {
-        // New location:
         currentLocation = currentLocation.move(currentHeading);
         if (Logging.DEBUG) {
             System.out.println(currentLocation);
@@ -83,8 +82,7 @@ public class Snake {
     /**
      * Turn the snake [L]eft or [R]ight
      * 
-     * @param L
-     *            or R
+     * @param direction L or R
      */
     public void turn(char direction) {
         if (Logging.DEBUG) {
