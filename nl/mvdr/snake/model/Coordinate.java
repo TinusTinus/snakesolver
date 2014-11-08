@@ -1,5 +1,6 @@
 package nl.mvdr.snake.model;
 
+/** A pair of coordinates. */
 public class Coordinate {
 
 	private final int x;

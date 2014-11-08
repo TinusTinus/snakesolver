@@ -18,19 +18,24 @@ public class Snake {
 			new Coordinate(-1, 0)  // West
 	};
 
-	// Our current heading (pointer into DIRECTIONS array), start going north
+	/** Our current heading (pointer into DIRECTIONS array), start going north. */
 	private int currentHeading = 0;
 	
-	// Our current location:
+	/** Our current location. */
 	private Coordinate currentLocation = new Coordinate(0, 0);
 	
-	// All the previously visited locations:
+	/** All the previously visited locations. */
 	private List<Coordinate> allLocations = new ArrayList<Coordinate>();
 
 	public List<Coordinate> getAllLocations() {
         return allLocations;
     }
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param debug whether debug logging is enabled
+	 */
     public Snake(boolean debug) {
 	    this.debug = debug;
 	    
@@ -43,7 +48,9 @@ public class Snake {
 	}
 
 	/**
-	 * Take N steps in the current direction
+	 * Take length steps in the current direction.
+	 * 
+	 * @param length number of steps to be taken
 	 */
 	public void step(int length) {
 		if(debug) {

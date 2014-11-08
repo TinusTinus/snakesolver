@@ -19,11 +19,17 @@ public class SnakePanel extends JPanel {
     /** Snake to be visualised. */
     private final Snake snake;
     
+    /**
+     * Constructor.
+     * 
+     * @param snake snake to be visualised
+     */
     public SnakePanel(Snake snake) {
         super();
         this.snake = snake;
     }
     
+    /** {@inheritDoc} */
     @Override
     protected void paintComponent(Graphics g) {
         

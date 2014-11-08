@@ -8,10 +8,14 @@ import nl.mvdr.snake.model.Coordinate;
 import nl.mvdr.snake.model.Snake;
 import nl.mvdr.snake.ui.SnakePanel;
 
+/** Main class. */
 public class PrimeSnakeSolver {
 
-	// Set to true to print more information
-	final boolean DEBUG = false;
+    /** Set to true to print more information. */
+	private final boolean DEBUG = false;
+	
+	/** Snake to be solved. */
+	private final Snake snake = new Snake(DEBUG);
 	
 	public static void main(String[] args) {
         PrimeSnakeSolver solver = new PrimeSnakeSolver();
@@ -27,8 +31,6 @@ public class PrimeSnakeSolver {
 		frame.setVisible(true);
 	}
 	
-	private Snake snake = new Snake(DEBUG);
-
 	private void solve(String solution, int snakeLength) {
 		
 		char[] input = solution.toCharArray();
@@ -70,6 +72,8 @@ public class PrimeSnakeSolver {
 
 	/**
 	 * Sieve all the primes up to a certain number and return all the gaps.
+	 * 
+	 * @return gaps
 	 */
 	private List<Integer> sieveGaps(int N) {
 		
