@@ -80,8 +80,10 @@ public class Snake {
         }
         if (direction == 'L') {
             currentHeading = currentHeading.turnLeft();
-        } else {
+        } else if (direction == 'R') {
             currentHeading = currentHeading.turnRight();
+        } else {
+            throw new IllegalArgumentException("Expected L or R, was " + direction);
         }
     }
     
