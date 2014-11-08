@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.mvdr.snake.model.Snake;
+import nl.mvdr.snake.model.TurnDirection;
 
 /** Main class. */
 public class Solver {
@@ -33,7 +34,7 @@ public class Solver {
 
             int stepsUntilNextTurn = primeGaps.get(i);
             snake.step(stepsUntilNextTurn);
-            snake.turn(input[i]);
+            snake.turn(TurnDirection.fromChar(input[i]));
 
             stepsTaken += stepsUntilNextTurn;
         }

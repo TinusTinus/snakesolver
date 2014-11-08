@@ -80,21 +80,12 @@ public class Snake {
     }
 
     /**
-     * Turn the snake [L]eft or [R]ight
+     * Turn the snake left or right.
      * 
-     * @param direction L or R
+     * @param turnDirection direction to turn
      */
-    public void turn(char direction) {
-        if (Logging.DEBUG) {
-            System.out.println("Turn " + direction);
-        }
-        if (direction == 'L') {
-            currentHeading = currentHeading.turnLeft();
-        } else if (direction == 'R') {
-            currentHeading = currentHeading.turnRight();
-        } else {
-            throw new IllegalArgumentException("Expected L or R, was " + direction);
-        }
+    public void turn(TurnDirection turnDirection) {
+        currentHeading = currentHeading.turn(turnDirection);
     }
     
     /** @return size of the snake's bounding square */
