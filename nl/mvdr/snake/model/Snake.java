@@ -42,25 +42,41 @@ public class Snake {
         }
 
         for (int i = 0; i < length; i++) {
+            step();
+        }
+    }
 
-            // New location:
-            currentLocation = currentLocation.move(currentHeading);
+    /**
+     * Takes a single step in the current direction.
+     * 
+     * @param length
+     *            number of steps to be taken
+     */
+    private void step() {
+        // New location:
+        currentLocation = currentLocation.move(currentHeading);
+        if (Logging.DEBUG) {
+            System.out.println(currentLocation);
+        }
 
+        checkCrossing();
+        
+        allLocations.add(currentLocation);
+    }
+
+    /**
+     * Check if the snake's current location overlaps with another part of the snake. Note that this method iterates
+     * over all of the snake's locations.
+     */
+    private void checkCrossing() {
+        if (allLocations.contains(currentLocation)) {
             if (Logging.DEBUG) {
-                System.out.println(currentLocation);
+                System.out.println("Oh no, a crossing!");
+                System.out.println("This is the path: ");
+                System.out.println(allLocations);
             }
-
-            // Check if there is a crossing (slow method, going through a list)
-            if (allLocations.contains(currentLocation)) {
-                if (Logging.DEBUG) {
-                    System.out.println("Oh no, a crossing!");
-                    System.out.println("This is the path: ");
-                    System.out.println(allLocations);
-                }
-                throw new IllegalArgumentException("Crossing detected at: " + currentLocation + " after "
-                        + allLocations.size() + " steps");
-            }
-            allLocations.add(currentLocation);
+            throw new IllegalStateException("Crossing detected at: " + currentLocation + " after "
+                    + allLocations.size() + " steps");
         }
     }
 
