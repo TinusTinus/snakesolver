@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import nl.mvdr.snake.model.Coordinate;
+import nl.mvdr.snake.model.Point;
 import nl.mvdr.snake.model.Snake;
 
 /** Visualisation of a Snake. */
@@ -59,8 +59,8 @@ public class SnakePanel extends JPanel {
 
         g2d.setColor(Color.BLACK);
         for (int i = 0; i < snake.getAllLocations().size() - 1; i++) {
-            Coordinate c1 = snake.getAllLocations().get(i);
-            Coordinate c2 = snake.getAllLocations().get(i + 1);
+            Point c1 = snake.getAllLocations().get(i);
+            Point c2 = snake.getAllLocations().get(i + 1);
             g2d.setStroke(new BasicStroke(4));
             g2d.drawLine(cx + (c1.getX() * ZOOM), cy + (c1.getY() * ZOOM), cx + (c2.getX() * ZOOM), cy
                     + (c2.getY() * ZOOM));

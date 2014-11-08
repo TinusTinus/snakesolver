@@ -10,23 +10,23 @@ public class Snake {
     private final int LEFT = -1;
     private final int RIGHT = 1;
 
-    private Coordinate[] DIRECTIONS = new Coordinate[] {
-            new Coordinate(0, -1), // North
-            new Coordinate(1, 0), // East
-            new Coordinate(0, 1), // South
-            new Coordinate(-1, 0) // West
+    private Point[] DIRECTIONS = new Point[] {
+            new Point(0, -1), // North
+            new Point(1, 0), // East
+            new Point(0, 1), // South
+            new Point(-1, 0) // West
     };
 
     /** Our current heading (pointer into DIRECTIONS array), start going north. */
     private int currentHeading = 0;
 
     /** Our current location. */
-    private Coordinate currentLocation = new Coordinate(0, 0);
+    private Point currentLocation = new Point(0, 0);
 
     /** All the previously visited locations. */
-    private List<Coordinate> allLocations = new ArrayList<Coordinate>();
+    private List<Point> allLocations = new ArrayList<Point>();
 
-    public List<Coordinate> getAllLocations() {
+    public List<Point> getAllLocations() {
         return allLocations;
     }
 
@@ -54,7 +54,7 @@ public class Snake {
         for (int i = 0; i < length; i++) {
 
             // New location:
-            currentLocation = new Coordinate(currentLocation.getX() + DIRECTIONS[currentHeading].getX(),
+            currentLocation = new Point(currentLocation.getX() + DIRECTIONS[currentHeading].getX(),
                     currentLocation.getY() + DIRECTIONS[currentHeading].getY());
 
             if (Logging.DEBUG) {
@@ -95,7 +95,7 @@ public class Snake {
     /** @return size of the snake's bounding square */
     public int computeScore() {
         int xmin = 0, ymin = 0, xmax = 0, ymax = 0;
-        for (Coordinate coordinate : allLocations) {
+        for (Point coordinate : allLocations) {
             xmax = Math.max(xmax, coordinate.getX());
             xmin = Math.min(xmin, coordinate.getX());
             ymax = Math.max(ymax, coordinate.getY());

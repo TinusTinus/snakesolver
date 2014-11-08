@@ -1,12 +1,13 @@
 package nl.mvdr.snake.model;
 
 /** A pair of coordinates. */
-public class Coordinate {
-
+public class Point {
+    /** X coordinate. */
     private final int x;
+    /** Y coordinate. */
     private final int y;
 
-    public Coordinate(int x, int y) {
+    public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -18,10 +19,10 @@ public class Coordinate {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Coordinate)) {
+        if (!(obj instanceof Point)) {
             return false;
         }
-        Coordinate other = (Coordinate) obj;
+        Point other = (Point) obj;
         return other.x == x && other.y == y;
     }
 
