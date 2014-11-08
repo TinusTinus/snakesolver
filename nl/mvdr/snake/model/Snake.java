@@ -10,9 +10,6 @@ public class Snake {
     /** Our current heading (pointer into DIRECTIONS array), start going north. */
     private Direction currentHeading = Direction.NORTH;
 
-    /** Our current location. */
-    private Point currentLocation = new Point(0, 0);
-
     /** All the previously visited locations. */
     private List<Point> allLocations = new ArrayList<Point>();
 
@@ -23,10 +20,10 @@ public class Snake {
     /** Constructor. */
     public Snake() {
         // Add initial position:
-        allLocations.add(currentLocation);
+        allLocations.add(new Point(0, 0));
 
         if (Logging.DEBUG) {
-            System.out.println(currentLocation + " <- start");
+            System.out.println(allLocations.get(0) + " <- start");
         }
     }
 
@@ -53,41 +50,47 @@ public class Snake {
      *            number of steps to be taken
      */
     private void step() {
-        currentLocation = currentLocation.move(currentHeading);
+        Point nextLocation = getCurrentLocation().move(currentHeading);
         if (Logging.DEBUG) {
-            System.out.println(currentLocation);
+            System.out.println(nextLocation);
         }
 
-        checkCrossing();
-        
-        allLocations.add(currentLocation);
+        checkCrossing(nextLocation);
+
+        allLocations.add(nextLocation);
+    }
+
+    /** @return the snake head's current location */
+    private Point getCurrentLocation() {
+        return allLocations.get(allLocations.size() - 1);
     }
 
     /**
-     * Check if the snake's current location overlaps with another part of the snake. Note that this method iterates
-     * over all of the snake's locations.
+     * Check if the given location overlaps with an existing part of the snake. Note that this method iterates over all
+     * of the snake's locations.
      */
-    private void checkCrossing() {
-        if (allLocations.contains(currentLocation)) {
+    private void checkCrossing(Point location) {
+        if (allLocations.contains(location)) {
             if (Logging.DEBUG) {
                 System.out.println("Oh no, a crossing!");
                 System.out.println("This is the path: ");
                 System.out.println(allLocations);
             }
-            throw new IllegalStateException("Crossing detected at: " + currentLocation + " after "
-                    + allLocations.size() + " steps");
+            throw new IllegalStateException("Crossing detected at: " + location + " after " + allLocations.size()
+                    + " steps");
         }
     }
 
     /**
      * Turn the snake left or right.
      * 
-     * @param turnDirection direction to turn
+     * @param turnDirection
+     *            direction to turn
      */
     public void turn(TurnDirection turnDirection) {
         currentHeading = currentHeading.turn(turnDirection);
     }
-    
+
     /** @return size of the snake's bounding square */
     public int computeScore() {
         int xmin = 0, ymin = 0, xmax = 0, ymax = 0;
