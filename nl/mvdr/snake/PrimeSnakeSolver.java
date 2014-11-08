@@ -4,6 +4,10 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import nl.mvdr.snake.model.Coordinate;
+import nl.mvdr.snake.model.Snake;
+import nl.mvdr.snake.ui.SnakePanel;
+
 public class PrimeSnakeSolver {
 
 	// Set to true to print more information
@@ -53,11 +57,11 @@ public class PrimeSnakeSolver {
 
 		// Calculate the final bounding square:
 		int xmin = 0, ymin = 0, xmax = 0, ymax = 0;
-		for(Coordinate coordinate:snake.allLocations) {
-			xmax = Math.max(xmax,  coordinate.x);
-			xmin = Math.min(xmin,  coordinate.x);
-			ymax = Math.max(ymax,  coordinate.y);
-			ymin = Math.min(ymin,  coordinate.y);
+		for(Coordinate coordinate:snake.getAllLocations()) {
+			xmax = Math.max(xmax,  coordinate.getX());
+			xmin = Math.min(xmin,  coordinate.getX());
+			ymax = Math.max(ymax,  coordinate.getY());
+			ymin = Math.min(ymin,  coordinate.getY());
 		}
 		
 		//Print the snake:

@@ -1,9 +1,9 @@
-package nl.mvdr.snake;
+package nl.mvdr.snake.model;
 
-class Coordinate {
+public class Coordinate {
 
-	int x;
-	int y;
+	private final int x;
+    private final int y;
 
 	public Coordinate(int x, int y) {
 		this.x = x;
@@ -23,4 +23,12 @@ class Coordinate {
 		Coordinate other = (Coordinate) obj;
 		return other.x == x && other.y == y;
 	}
+	
+	   public int getX() {
+	        return x;
+	    }
+
+	    public int getY() {
+	        return y;
+	    }
 }

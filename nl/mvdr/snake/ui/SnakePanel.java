@@ -1,4 +1,4 @@
-package nl.mvdr.snake;
+package nl.mvdr.snake.ui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -7,16 +7,19 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import nl.mvdr.snake.model.Coordinate;
+import nl.mvdr.snake.model.Snake;
+
 /** Visualisation of a Snake. */
 @SuppressWarnings("serial") // no serialisation
-class SnakePanel extends JPanel {
+public class SnakePanel extends JPanel {
     // Adjust to see more detail
     private static final int ZOOM = 10;
     
     /** Snake to be visualised. */
     private final Snake snake;
     
-    SnakePanel(Snake snake) {
+    public SnakePanel(Snake snake) {
         super();
         this.snake = snake;
     }
@@ -48,15 +51,15 @@ class SnakePanel extends JPanel {
         }
 
         g2d.setColor(Color.BLACK);
-        for (int i = 0; i < snake.allLocations.size() - 1; i++) {
-            Coordinate c1 = snake.allLocations.get(i);
-            Coordinate c2 = snake.allLocations.get(i + 1);
+        for (int i = 0; i < snake.getAllLocations().size() - 1; i++) {
+            Coordinate c1 = snake.getAllLocations().get(i);
+            Coordinate c2 = snake.getAllLocations().get(i + 1);
             g2d.setStroke(new BasicStroke(4));
             g2d.drawLine(
-                    cx + (c1.x * ZOOM), 
-                    cy + (c1.y * ZOOM), 
-                    cx + (c2.x * ZOOM), 
-                    cy + (c2.y * ZOOM));
+                    cx + (c1.getX() * ZOOM), 
+                    cy + (c1.getY() * ZOOM), 
+                    cx + (c2.getX() * ZOOM), 
+                    cy + (c2.getY() * ZOOM));
         }
 
         // Show origin

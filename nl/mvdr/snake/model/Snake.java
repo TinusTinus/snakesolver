@@ -1,10 +1,10 @@
-package nl.mvdr.snake;
+package nl.mvdr.snake.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /** Store the state of the snake. */
-class Snake {
+public class Snake {
     /** Indicates whether debug logging is enabled. */
     private final boolean debug;
 
@@ -25,9 +25,13 @@ class Snake {
 	private Coordinate currentLocation = new Coordinate(0, 0);
 	
 	// All the previously visited locations:
-	List<Coordinate> allLocations = new ArrayList<Coordinate>();
+	private List<Coordinate> allLocations = new ArrayList<Coordinate>();
 
-	public Snake(boolean debug) {
+	public List<Coordinate> getAllLocations() {
+        return allLocations;
+    }
+
+    public Snake(boolean debug) {
 	    this.debug = debug;
 	    
         //Add initial position:
@@ -41,7 +45,7 @@ class Snake {
 	/**
 	 * Take N steps in the current direction
 	 */
-	void step(int length) {
+	public void step(int length) {
 		if(debug) {
 			System.out.println("Take steps: " + length);
 		}
@@ -50,8 +54,8 @@ class Snake {
 			
 			// New location:
 			currentLocation = new Coordinate(
-					currentLocation.x + DIRECTIONS[currentHeading].x,
-					currentLocation.y + DIRECTIONS[currentHeading].y);
+					currentLocation.getX() + DIRECTIONS[currentHeading].getX(),
+					currentLocation.getY() + DIRECTIONS[currentHeading].getY());
 			
 			if(debug) {
 				System.out.println(currentLocation);
@@ -77,7 +81,7 @@ class Snake {
 	 * 
 	 * @param L or R
 	 */
-	void turn(char direction) {
+	public void turn(char direction) {
 		if(debug) {
 			System.out.println("Turn " + direction);
 		}
