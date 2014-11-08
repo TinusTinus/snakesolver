@@ -49,20 +49,21 @@ public class Solver {
     }
 
     /**
-     * Sieve all the primes up to a certain number and return all the gaps.
+     * Sieve all the primes up to the given number and return all the gaps.
      * 
+     * @param n upper limit
      * @return gaps
      */
-    private List<Integer> sieveGaps(int N) {
+    private List<Integer> sieveGaps(int n) {
 
         // Sieve of Eratosthenes
-        boolean[] isPrime = new boolean[N + 1];
-        for (int i = 2; i <= N; i++) {
+        boolean[] isPrime = new boolean[n + 1];
+        for (int i = 2; i <= n; i++) {
             isPrime[i] = true;
         }
-        for (int i = 2; i * i <= N; i++) {
+        for (int i = 2; i * i <= n; i++) {
             if (isPrime[i]) {
-                for (int j = i; i * j <= N; j++) {
+                for (int j = i; i * j <= n; j++) {
                     isPrime[i * j] = false;
                 }
             }
@@ -71,7 +72,7 @@ public class Solver {
         // Return the gaps:
         List<Integer> gaps = new ArrayList<Integer>();
         int lastPrime = 0;
-        for (int i = 2; i <= N; i++) {
+        for (int i = 2; i <= n; i++) {
             if (isPrime[i]) {
                 gaps.add(i - lastPrime);
                 lastPrime = i;
