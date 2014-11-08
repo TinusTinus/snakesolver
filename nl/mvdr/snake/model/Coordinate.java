@@ -3,33 +3,33 @@ package nl.mvdr.snake.model;
 /** A pair of coordinates. */
 public class Coordinate {
 
-	private final int x;
+    private final int x;
     private final int y;
 
-	public Coordinate(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
+    public Coordinate(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
-	@Override
-	public String toString() {
-		return "(" + x + "," + y + ")";
-	}
+    @Override
+    public String toString() {
+        return "(" + x + "," + y + ")";
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (!(obj instanceof Coordinate)) {
-			return false;
-		}
-		Coordinate other = (Coordinate) obj;
-		return other.x == x && other.y == y;
-	}
-	
-	   public int getX() {
-	        return x;
-	    }
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Coordinate)) {
+            return false;
+        }
+        Coordinate other = (Coordinate) obj;
+        return other.x == x && other.y == y;
+    }
 
-	    public int getY() {
-	        return y;
-	    }
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }
