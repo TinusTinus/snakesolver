@@ -3,15 +3,11 @@ package nl.mvdr.snake;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Store the state of the snake
- */
+/** Store the state of the snake. */
 class Snake {
+    /** Indicates whether debug logging is enabled. */
+    private final boolean debug;
 
-	/**
-     * TODO
-     */
-    private final PrimeSnakeSolver primeSnakeSolver;
     private final int LEFT = -1;
 	private final int RIGHT = 1;
 	
@@ -31,12 +27,13 @@ class Snake {
 	// All the previously visited locations:
 	List<Coordinate> allLocations = new ArrayList<Coordinate>();
 
-	public Snake(PrimeSnakeSolver primeSnakeSolver) {
-		this.primeSnakeSolver = primeSnakeSolver;
+	public Snake(boolean debug) {
+	    this.debug = debug;
+	    
         //Add initial position:
 		allLocations.add(currentLocation);
 		
-		if(this.primeSnakeSolver.DEBUG) {
+		if(debug) {
 			System.out.println(currentLocation + " <- start");
 		}
 	}
@@ -45,7 +42,7 @@ class Snake {
 	 * Take N steps in the current direction
 	 */
 	void step(int length) {
-		if(this.primeSnakeSolver.DEBUG) {
+		if(debug) {
 			System.out.println("Take steps: " + length);
 		}
 		
@@ -56,13 +53,13 @@ class Snake {
 					currentLocation.x + DIRECTIONS[currentHeading].x,
 					currentLocation.y + DIRECTIONS[currentHeading].y);
 			
-			if(this.primeSnakeSolver.DEBUG) {
+			if(debug) {
 				System.out.println(currentLocation);
 			}
 			
 			// Check if there is a crossing (slow method, going through a list)
 			if (allLocations.contains(currentLocation)) {
-				if(this.primeSnakeSolver.DEBUG) {
+				if(debug) {
 					System.out.println("Oh no, a crossing!");
 					System.out.println("This is the path: ");
 					System.out.println(allLocations);
@@ -81,7 +78,7 @@ class Snake {
 	 * @param L or R
 	 */
 	void turn(char direction) {
-		if(this.primeSnakeSolver.DEBUG) {
+		if(debug) {
 			System.out.println("Turn " + direction);
 		}
 		if (direction == 'L') {

@@ -39,7 +39,7 @@ public class PrimeSnakeSolver extends JPanel {
 		// solver.solve("?", 5000);
 	}
 	
-	private Snake snake = new Snake(this);
+	private Snake snake = new Snake(DEBUG);
 
 	private void solve(String solution, int snakeLength) {
 		
