@@ -2,6 +2,7 @@ package nl.mvdr.snake.model;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.Set;
 
 import nl.mvdr.snake.util.Logging;
@@ -16,6 +17,9 @@ public class Snake {
 
     /** All the previously visited locations. */
     private final Set<Point> allLocations;
+    
+    /** Cached score value for this snake. */
+    private OptionalInt score;
 
     /** Constructor. */
     public Snake() {
@@ -27,6 +31,8 @@ public class Snake {
         
         // Add initial position:
         allLocations.add(currentLocation);
+        
+        score = OptionalInt.empty();
 
         if (Logging.DEBUG) {
             System.out.println(currentLocation + " <- start");
@@ -42,9 +48,12 @@ public class Snake {
      */
     private Snake(Direction currentHeading, Point currentLocation, Set<Point> allLocations) {
         super();
+        
         this.currentHeading = currentHeading;
         this.currentLocation = currentLocation;
         this.allLocations = allLocations;
+        
+        this.score = OptionalInt.empty();
     }
 
     /**
@@ -105,7 +114,13 @@ public class Snake {
     }
     
     /** @return size of the snake's bounding square */
-    public int computeScore() {
+    public int getScore() {
+        score = OptionalInt.of(score.orElse(computeScore()));
+        return score.getAsInt();
+    }
+    
+    /** @return size of the snake's bounding square */
+    private int computeScore() {
         int xmin = 0, ymin = 0, xmax = 0, ymax = 0;
         for (Point coordinate : allLocations) {
             xmax = Math.max(xmax, coordinate.getX());

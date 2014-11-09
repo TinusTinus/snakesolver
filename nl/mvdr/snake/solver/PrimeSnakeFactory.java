@@ -45,7 +45,7 @@ public class PrimeSnakeFactory {
                 .orElseThrow(() -> new IllegalArgumentException("Crossing detected."));
 
         // Print the snake:
-        System.out.println("Smallest bounding square/score: " + snake.computeScore());
+        System.out.println("Smallest bounding square/score: " + snake.getScore());
         
         return snake;
     }
