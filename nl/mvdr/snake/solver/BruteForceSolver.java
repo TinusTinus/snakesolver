@@ -60,6 +60,8 @@ public class BruteForceSolver implements Supplier<Snake> {
                     .flatMap(snake -> Stream.of(snake.turn(TurnDirection.LEFT), snake.turn(TurnDirection.RIGHT)))
                     .collect(Collectors.toSet());
             
+            System.out.println("Intermediate results: " + results.size());
+            
             stepsTaken += stepsUntilNextTurn;
         }
         
