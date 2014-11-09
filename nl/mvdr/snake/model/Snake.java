@@ -7,21 +7,23 @@ import nl.mvdr.snake.util.Logging;
 
 /** Store the state of the snake. */
 public class Snake {
-    /** Our current heading (pointer into DIRECTIONS array), start going north. */
-    private Direction currentHeading = Direction.NORTH;
+    /** Our current heading. */
+    private final Direction currentHeading;
 
     /** Our current location. */
-    private Point currentLocation = new Point(0, 0);
+    private final Point currentLocation;
 
     /** All the previously visited locations. */
-    private Set<Point> allLocations = new HashSet<>();
-
-    public Set<Point> getAllLocations() {
-        return allLocations;
-    }
+    private final Set<Point> allLocations;
 
     /** Constructor. */
     public Snake() {
+        super();
+        
+        currentHeading = Direction.NORTH;
+        currentLocation =  new Point(0, 0);
+        allLocations = new HashSet<>(1);
+        
         // Add initial position:
         allLocations.add(currentLocation);
 
@@ -31,19 +33,38 @@ public class Snake {
     }
 
     /**
+     * Constructor.
+     * 
+     * @param currentHeading current heading
+     * @param currentLocation current location
+     * @param allLocations all locations
+     */
+    private Snake(Direction currentHeading, Point currentLocation, Set<Point> allLocations) {
+        super();
+        this.currentHeading = currentHeading;
+        this.currentLocation = currentLocation;
+        this.allLocations = allLocations;
+    }
+
+    /**
      * Take length steps in the current direction.
      * 
      * @param length
      *            number of steps to be taken
+     * @param snake after taking the steps
      */
-    public void step(int length) {
+    public Snake step(int length) {
         if (Logging.DEBUG) {
             System.out.println("Take steps: " + length);
         }
+        
+        Snake result = this;
 
         for (int i = 0; i < length; i++) {
-            step();
+            result = result.step();
         }
+        
+        return result;
     }
 
     /**
@@ -52,28 +73,33 @@ public class Snake {
      * @param length
      *            number of steps to be taken
      */
-    private void step() {
-        currentLocation = currentLocation.move(currentHeading);
+    private Snake step() {
+        Point nextLocation = currentLocation.move(currentHeading);
         if (Logging.DEBUG) {
-            System.out.println(currentLocation);
+            System.out.println(nextLocation);
         }
 
-        checkCrossing();
+        checkCrossing(nextLocation);
         
-        allLocations.add(currentLocation);
+        Set<Point> nextLocations = new HashSet<>(allLocations);
+        nextLocations.add(currentLocation);
+        
+        return new Snake(currentHeading, nextLocation, nextLocations);
     }
 
     /**
-     * Check if the snake's current location overlaps with another part of the snake.
+     * Check if the given location overlaps with another part of the snake.
+     * 
+     * @param location location to check
      */
-    private void checkCrossing() {
-        if (allLocations.contains(currentLocation)) {
+    private void checkCrossing(Point location) {
+        if (allLocations.contains(location)) {
             if (Logging.DEBUG) {
                 System.out.println("Oh no, a crossing!");
                 System.out.println("This is the path: ");
                 System.out.println(allLocations);
             }
-            throw new IllegalStateException("Crossing detected at: " + currentLocation + " after "
+            throw new IllegalStateException("Crossing detected at: " + location + " after "
                     + allLocations.size() + " steps");
         }
     }
@@ -83,8 +109,9 @@ public class Snake {
      * 
      * @param turnDirection direction to turn
      */
-    public void turn(TurnDirection turnDirection) {
-        currentHeading = currentHeading.turn(turnDirection);
+    public Snake turn(TurnDirection turnDirection) {
+        Direction nextHeading = currentHeading.turn(turnDirection);
+        return new Snake(nextHeading, currentLocation, allLocations);
     }
     
     /** @return size of the snake's bounding square */
@@ -97,5 +124,9 @@ public class Snake {
             ymin = Math.min(ymin, coordinate.getY());
         }
         return Math.max(xmax - xmin, ymax - ymin);
+    }
+    
+    public Set<Point> getAllLocations() {
+        return allLocations;
     }
 }

@@ -33,14 +33,14 @@ public class Solver {
         for (int i = 0; i < input.length; i++) {
 
             int stepsUntilNextTurn = primeGaps.get(i);
-            snake.step(stepsUntilNextTurn);
-            snake.turn(TurnDirection.fromChar(input[i]));
+            snake = snake.step(stepsUntilNextTurn);
+            snake = snake.turn(TurnDirection.fromChar(input[i]));
 
             stepsTaken += stepsUntilNextTurn;
         }
 
         // Take the final steps to create a snake of the desired total length:
-        snake.step(snakeLength - stepsTaken);
+        snake = snake.step(snakeLength - stepsTaken);
 
         // Print the snake:
         System.out.println("Smallest bounding square/score: " + snake.computeScore());
