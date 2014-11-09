@@ -23,7 +23,7 @@ public class LimitedBruteForceSolver implements Supplier<Snake> {
     private static final Comparator<Snake> SCORE_COMPARATOR = (left, right) -> Integer.compare(left.getScore(), right.getScore());
     
     /** Maximum number of intermediate results. */
-    private static final int MAX_INTERMEDIATE_RESULTS = 500;
+    private static final int MAX_INTERMEDIATE_RESULTS = 2_000;
     
     /** Intended length of the snake. */
     private final int length;
@@ -65,15 +65,17 @@ public class LimitedBruteForceSolver implements Supplier<Snake> {
                     .filter(optional -> optional.isPresent())
                     .map(Optional::get)
                     .flatMap(snake -> Stream.of(snake.turn(TurnDirection.LEFT), snake.turn(TurnDirection.RIGHT)))
-                    // In order to keep the data set under control, only keep the first MAX_INTERMEDIATE_RESULTS snakes with the lowest scores.
-                    // Note that this means this algorithm is not GUARANTEED to provide a minimal score answer.
+                    // In order to keep the data set from growing exponentially,
+                    // only keep the first MAX_INTERMEDIATE_RESULTS snakes with the lowest scores.
+                    // Note that this means this algorithm is not guaranteed to provide a minimal score answer!
+                    // The result will be a local minimum.
                     .sorted(SCORE_COMPARATOR)
                     .limit(MAX_INTERMEDIATE_RESULTS)
                     .collect(Collectors.toSet());
             
             stepsTaken += stepsUntilNextTurn;
             
-            System.out.println(stepsTaken + " steps taken");
+            System.out.println(stepsTaken + " / " + length + " steps");
         }
         
         int stepsLeft = length - stepsTaken;
