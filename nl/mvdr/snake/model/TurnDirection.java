@@ -22,28 +22,6 @@ public enum TurnDirection {
     private TurnDirection(char character) {
         this.character = character;
     }
-    
-    /**
-     * Gives the turn direction corresponding to the given character.
-     * 
-     * @param character L or R
-     * @return turn direction
-     */
-    public static TurnDirection fromChar(char character) {
-        TurnDirection result = null;
-        
-        for (TurnDirection turnDirection: values()) {
-            if (turnDirection.character == character) {
-                result = turnDirection;
-            }
-        }
-        
-        if (result == null) {
-            throw new IllegalArgumentException("Expected L or R, was " + character);
-        }
-        
-        return result;
-    }
 
     public char getCharacter() {
         return character;
