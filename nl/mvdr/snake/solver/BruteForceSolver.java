@@ -28,18 +28,28 @@ public class BruteForceSolver implements Supplier<Snake> {
      */
     public BruteForceSolver(int length) {
         super();
+        
+        if (length < 2) {
+            throw new IllegalArgumentException("Length must be at least 2, was " + length);
+        }
+        
         this.length = length;
     }
     
     /** {@inheritDoc} */
     @Override
     public Snake get() {
-        Set<Snake> results = Collections.singleton(new Snake());
+        // solutions are symmetrical in the first turn; just pick a direction
+        Snake startSnake = new Snake()
+            .step().get()
+            .step().get()
+            .turn(TurnDirection.LEFT);
+        Set<Snake> results = Collections.singleton(startSnake);
         
         List<Integer> primeGaps = Primes.sieveGaps(length);
         
-        int stepsTaken = 0;
-        for (int i = 0; i < primeGaps.size(); i++) {
+        int stepsTaken = 2;
+        for (int i = 1; i < primeGaps.size(); i++) {
 
             int stepsUntilNextTurn = primeGaps.get(i);
             
