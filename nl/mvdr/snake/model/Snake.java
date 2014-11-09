@@ -30,7 +30,7 @@ public class Snake {
     private final int ymax;
     
     /** Cached score value for this snake. */
-    private int score;
+    private final int score;
 
     /** Constructor. */
     public Snake() {
