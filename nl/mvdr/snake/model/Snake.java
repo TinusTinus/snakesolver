@@ -2,7 +2,6 @@ package nl.mvdr.snake.model;
 
 import java.util.HashSet;
 import java.util.Optional;
-import java.util.OptionalInt;
 import java.util.Set;
 
 import nl.mvdr.snake.util.Logging;
@@ -22,7 +21,7 @@ public class Snake {
     private final String solution;
     
     /** Cached score value for this snake. */
-    private OptionalInt score;
+    private int score;
 
     /** Constructor. */
     public Snake() {
@@ -36,7 +35,7 @@ public class Snake {
         // Add initial position:
         allLocations.add(currentLocation);
         
-        score = OptionalInt.empty();
+        score = computeScore();
 
         if (Logging.DEBUG) {
             System.out.println(currentLocation + " <- start");
@@ -59,7 +58,7 @@ public class Snake {
         this.allLocations = allLocations;
         this.solution = solution;
         
-        this.score = OptionalInt.empty();
+        this.score = computeScore();
     }
 
     /**
@@ -118,13 +117,7 @@ public class Snake {
         Direction nextHeading = currentHeading.turn(turnDirection);
         return new Snake(nextHeading, currentLocation, allLocations, solution + turnDirection.getCharacter());
     }
-    
-    /** @return size of the snake's bounding square */
-    public int getScore() {
-        score = OptionalInt.of(score.orElse(computeScore()));
-        return score.getAsInt();
-    }
-    
+
     /** @return size of the snake's bounding square */
     private int computeScore() {
         int xmin = 0, ymin = 0, xmax = 0, ymax = 0;
@@ -135,6 +128,11 @@ public class Snake {
             ymin = Math.min(ymin, coordinate.getY());
         }
         return Math.max(xmax - xmin, ymax - ymin);
+    }
+    
+    /** @return size of the snake's bounding square */
+    public int getScore() {
+        return score;
     }
     
     public Set<Point> getAllLocations() {
