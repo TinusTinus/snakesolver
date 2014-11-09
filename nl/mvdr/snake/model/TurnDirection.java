@@ -44,4 +44,8 @@ public enum TurnDirection {
         
         return result;
     }
+
+    public char getCharacter() {
+        return character;
+    }
 }

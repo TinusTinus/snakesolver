@@ -18,6 +18,9 @@ public class Snake {
     /** All the previously visited locations. */
     private final Set<Point> allLocations;
     
+    /** Solution. */
+    private final String solution;
+    
     /** Cached score value for this snake. */
     private OptionalInt score;
 
@@ -28,6 +31,7 @@ public class Snake {
         currentHeading = Direction.NORTH;
         currentLocation =  new Point(0, 0);
         allLocations = new HashSet<>(1);
+        solution = "";
         
         // Add initial position:
         allLocations.add(currentLocation);
@@ -45,13 +49,15 @@ public class Snake {
      * @param currentHeading current heading
      * @param currentLocation current location
      * @param allLocations all locations
+     * @param solution solution
      */
-    private Snake(Direction currentHeading, Point currentLocation, Set<Point> allLocations) {
+    private Snake(Direction currentHeading, Point currentLocation, Set<Point> allLocations, String solution) {
         super();
         
         this.currentHeading = currentHeading;
         this.currentLocation = currentLocation;
         this.allLocations = allLocations;
+        this.solution = solution;
         
         this.score = OptionalInt.empty();
     }
@@ -96,7 +102,7 @@ public class Snake {
         } else {
             Set<Point> nextLocations = new HashSet<>(allLocations);
             nextLocations.add(currentLocation);
-            result = Optional.of(new Snake(currentHeading, nextLocation, nextLocations));
+            result = Optional.of(new Snake(currentHeading, nextLocation, nextLocations, solution));
         }
         
         return result;
@@ -110,7 +116,7 @@ public class Snake {
      */
     public Snake turn(TurnDirection turnDirection) {
         Direction nextHeading = currentHeading.turn(turnDirection);
-        return new Snake(nextHeading, currentLocation, allLocations);
+        return new Snake(nextHeading, currentLocation, allLocations, solution + turnDirection.getCharacter());
     }
     
     /** @return size of the snake's bounding square */
@@ -133,5 +139,9 @@ public class Snake {
     
     public Set<Point> getAllLocations() {
         return allLocations;
+    }
+
+    public String getSolution() {
+        return solution;
     }
 }
