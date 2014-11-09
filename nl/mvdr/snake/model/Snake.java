@@ -52,19 +52,17 @@ public class Snake {
      * 
      * @param length
      *            number of steps to be taken
-     * @param snake after taking the steps
+     * @param snake after taking the steps, if legal
      */
-    public Snake step(int length) {
+    public Optional<Snake> step(int length) {
         if (Logging.DEBUG) {
             System.out.println("Take steps: " + length);
         }
         
-        Snake result = this;
+        Optional<Snake> result = Optional.of(this);
 
         for (int i = 0; i < length; i++) {
-            result = result.step().orElseThrow(
-                    () -> new IllegalArgumentException("Crossing detected while moving " + length + " steps from "
-                            + currentLocation + " after " + allLocations.size() + " steps"));
+            result = result.flatMap(Snake::step);
         }
         
         return result;
