@@ -61,20 +61,11 @@ public class LimitedBruteForceSolver implements Supplier<Snake> {
                     .filter(optional -> optional.isPresent())
                     .map(Optional::get)
                     .flatMap(snake -> Stream.of(snake.turn(TurnDirection.LEFT), snake.turn(TurnDirection.RIGHT)))
+                    // In order to keep the data set under control, only keep the first MAX_INTERMEDIATE_RESULTS snakes with the lowest scores.
+                    // Note that this means this algorithm is not GUARANTEED to provide a minimal score answer.
+                    .sorted((left, right) -> Integer.compare(left.getScore(), right.getScore()))
+                    .limit(MAX_INTERMEDIATE_RESULTS)
                     .collect(Collectors.toSet());
-            
-            if (MAX_INTERMEDIATE_RESULTS < results.size()) {
-                // In order to keep the data set under control, ~ halve the set by removing the ones with an above average score.
-                // Note that this means this algorithm is not GUARANTEED to provide a minimal score answer.
-                
-                double averageScore = results.parallelStream()
-                        .mapToInt(Snake::getScore)
-                        .average()
-                        .getAsDouble();
-                results = results.parallelStream()
-                        .filter(snake -> snake.getScore() <= averageScore)
-                        .collect(Collectors.toSet());
-            }
             
             stepsTaken += stepsUntilNextTurn;
             
