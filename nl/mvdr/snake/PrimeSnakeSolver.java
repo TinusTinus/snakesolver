@@ -1,10 +1,8 @@
 package nl.mvdr.snake;
 
-import javax.swing.JFrame;
-
 import nl.mvdr.snake.model.Snake;
-import nl.mvdr.snake.solver.Solver;
-import nl.mvdr.snake.ui.SnakePanel;
+import nl.mvdr.snake.solver.PrimeSnakeFactory;
+import nl.mvdr.snake.ui.SnakeVisualiser;
 
 /** Main class. */
 public class PrimeSnakeSolver {
@@ -14,16 +12,10 @@ public class PrimeSnakeSolver {
      * @param args command line arguments; these are ignored
      */
     public static void main(String[] args) {
-        Solver solver = new Solver();
+        PrimeSnakeFactory factory = new PrimeSnakeFactory();
 
-        Snake snake = solver.solve("LRRLRRLRLRRLRRLRLLRLLRRLL", 100);
+        Snake snake = factory.create("LRRLRRLRLRRLRRLRLLRLLRRLL", 100);
 
-        // TODO length 5000: solver.solve("?", 5000);
-
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 800);
-        frame.add(new SnakePanel(snake));
-        frame.setVisible(true);
+        SnakeVisualiser.show(snake);
     }
 }

@@ -11,7 +11,7 @@ import nl.mvdr.snake.model.Snake;
 
 /** Visualisation of a Snake. */
 @SuppressWarnings("serial") // no serialisation
-public class SnakePanel extends JPanel {
+class SnakePanel extends JPanel {
     /** Adjust to see more detail. */
     private static final int ZOOM = 10;
 
@@ -24,7 +24,7 @@ public class SnakePanel extends JPanel {
      * @param snake
      *            snake to be visualised
      */
-    public SnakePanel(Snake snake) {
+    SnakePanel(Snake snake) {
         super();
         this.snake = snake;
     }
