@@ -22,7 +22,10 @@ public class LimitedBruteForceSolver implements Supplier<Snake> {
     /** Comparator for increasing score values. */
     private static final Comparator<Snake> SCORE_COMPARATOR = (left, right) -> Integer.compare(left.getScore(), right.getScore());
     
-    /** Maximum number of intermediate results. */
+    /**
+     * Maximum number of intermediate results. Choosing a higher value means better results, but also longer computation
+     * time and more memory use.
+     */
     private static final int MAX_INTERMEDIATE_RESULTS = 2_000;
     
     /** Intended length of the snake. */
