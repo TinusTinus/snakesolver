@@ -4,7 +4,6 @@ import java.util.function.Supplier;
 
 import nl.mvdr.snake.model.Snake;
 import nl.mvdr.snake.solver.LimitedBruteForceSolver;
-import nl.mvdr.snake.solver.PrimeSnakeFactory;
 import nl.mvdr.snake.ui.SnakeVisualiser;
 
 /** Main class. */
@@ -27,10 +26,6 @@ public class PrimeSnakeSolver {
         System.out.println("Solution: " + snake.getSolution());
         System.out.println("Score: " + snake.getScore());
         System.out.println("Time taken: " + Long.valueOf(System.currentTimeMillis() - startTime) + " ms.");
-        
-        // TODO remove the following
-        // validate the result
-        snake = new PrimeSnakeFactory().create(snake.getSolution(), SNAKE_SIZE);
         
         SnakeVisualiser.show(snake);
     }
