@@ -73,7 +73,7 @@ public class LimitedBruteForceSolver implements Supplier<Snake> {
             
             stepsTaken += stepsUntilNextTurn;
             
-            System.out.println("Intermediate results after " + stepsTaken + " steps: " + results.size());
+            System.out.println(stepsTaken + " steps taken");
         }
         
         int stepsLeft = length - stepsTaken;

@@ -18,11 +18,15 @@ public class PrimeSnakeSolver {
      * @param args command line arguments; these are ignored
      */
     public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
+        
         Supplier<Snake> solver = new LimitedBruteForceSolver(SNAKE_SIZE);
         
         Snake snake = solver.get();
         
-        System.out.println("Solution: " + snake.getSolution() + ", score: " + snake.getScore());
+        System.out.println("Solution: " + snake.getSolution());
+        System.out.println("Score: " + snake.getScore());
+        System.out.println("Time taken: " + Long.valueOf(System.currentTimeMillis() - startTime) + " ms.");
         
         // TODO remove the following
         // validate the result
