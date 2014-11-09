@@ -13,7 +13,7 @@ import nl.mvdr.snake.model.Snake;
 @SuppressWarnings("serial") // no serialisation
 class SnakePanel extends JPanel {
     /** Adjust to see more detail. */
-    private static final int ZOOM = 10;
+    private static final int ZOOM = 4;
 
     /** Snake to be visualised. */
     private final Snake snake;
