@@ -1,6 +1,7 @@
 package nl.mvdr.snake.solver;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -18,8 +19,11 @@ import nl.mvdr.snake.util.Primes;
  * @author Martijn van de Rijdt
  */
 public class LimitedBruteForceSolver implements Supplier<Snake> {
+    /** Comparator for increasing score values. */
+    private static final Comparator<Snake> SCORE_COMPARATOR = (left, right) -> Integer.compare(left.getScore(), right.getScore());
+    
     /** Maximum number of intermediate results. */
-    private static final int MAX_INTERMEDIATE_RESULTS = 200;
+    private static final int MAX_INTERMEDIATE_RESULTS = 500;
     
     /** Intended length of the snake. */
     private final int length;
@@ -63,7 +67,7 @@ public class LimitedBruteForceSolver implements Supplier<Snake> {
                     .flatMap(snake -> Stream.of(snake.turn(TurnDirection.LEFT), snake.turn(TurnDirection.RIGHT)))
                     // In order to keep the data set under control, only keep the first MAX_INTERMEDIATE_RESULTS snakes with the lowest scores.
                     // Note that this means this algorithm is not GUARANTEED to provide a minimal score answer.
-                    .sorted((left, right) -> Integer.compare(left.getScore(), right.getScore()))
+                    .sorted(SCORE_COMPARATOR)
                     .limit(MAX_INTERMEDIATE_RESULTS)
                     .collect(Collectors.toSet());
             
@@ -79,7 +83,7 @@ public class LimitedBruteForceSolver implements Supplier<Snake> {
                 .map(snake -> snake.step(stepsLeft))
                 .filter(optional -> optional.isPresent())
                 .map(Optional::get)
-                .min((left, right) -> Integer.compare(left.getScore(), right.getScore()))
+                .min(SCORE_COMPARATOR)
                 .orElseThrow(() -> new IllegalStateException("Failed to calculate a fitting snake."));
     }
 }
