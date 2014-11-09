@@ -1,6 +1,7 @@
 package nl.mvdr.snake.model;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import nl.mvdr.snake.util.Logging;
@@ -61,7 +62,9 @@ public class Snake {
         Snake result = this;
 
         for (int i = 0; i < length; i++) {
-            result = result.step();
+            result = result.step().orElseThrow(
+                    () -> new IllegalArgumentException("Crossing detected while moving " + length + " steps from "
+                            + currentLocation + " after " + allLocations.size() + " steps"));
         }
         
         return result;
@@ -72,42 +75,31 @@ public class Snake {
      * 
      * @param length
      *            number of steps to be taken
+     * @return snake after taking the step, if legal
      */
-    private Snake step() {
+    public Optional<Snake> step() {
         Point nextLocation = currentLocation.move(currentHeading);
         if (Logging.DEBUG) {
             System.out.println(nextLocation);
         }
 
-        checkCrossing(nextLocation);
-        
-        Set<Point> nextLocations = new HashSet<>(allLocations);
-        nextLocations.add(currentLocation);
-        
-        return new Snake(currentHeading, nextLocation, nextLocations);
-    }
-
-    /**
-     * Check if the given location overlaps with another part of the snake.
-     * 
-     * @param location location to check
-     */
-    private void checkCrossing(Point location) {
-        if (allLocations.contains(location)) {
-            if (Logging.DEBUG) {
-                System.out.println("Oh no, a crossing!");
-                System.out.println("This is the path: ");
-                System.out.println(allLocations);
-            }
-            throw new IllegalStateException("Crossing detected at: " + location + " after "
-                    + allLocations.size() + " steps");
+        Optional<Snake> result;
+        if (allLocations.contains(nextLocation)) {
+            result = Optional.empty();
+        } else {
+            Set<Point> nextLocations = new HashSet<>(allLocations);
+            nextLocations.add(currentLocation);
+            result = Optional.of(new Snake(currentHeading, nextLocation, nextLocations));
         }
+        
+        return result;
     }
-
+    
     /**
      * Turn the snake left or right.
      * 
      * @param turnDirection direction to turn
+     * @return snake with adjusted direction
      */
     public Snake turn(TurnDirection turnDirection) {
         Direction nextHeading = currentHeading.turn(turnDirection);
