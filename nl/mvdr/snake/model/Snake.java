@@ -20,6 +20,15 @@ public class Snake {
     /** Solution. */
     private final String solution;
     
+    /** Minimum x coordinate. */
+    private final int xmin;
+    /** Maximum x coordinate. */
+    private final int xmax;
+    /** Minimum y coordinate. */
+    private final int ymin;
+    /** Maximum y coordinate. */
+    private final int ymax;
+    
     /** Cached score value for this snake. */
     private int score;
 
@@ -35,7 +44,11 @@ public class Snake {
         // Add initial position:
         allLocations.add(currentLocation);
         
-        score = computeScore();
+        xmin = 0;
+        xmax = 0;
+        ymin = 0;
+        ymax = 0;
+        score = 0;
 
         if (Logging.DEBUG) {
             System.out.println(currentLocation + " <- start");
@@ -50,7 +63,7 @@ public class Snake {
      * @param allLocations all locations
      * @param solution solution
      */
-    private Snake(Direction currentHeading, Point currentLocation, Set<Point> allLocations, String solution) {
+    private Snake(Direction currentHeading, Point currentLocation, Set<Point> allLocations, String solution, int xmin, int xmax, int ymin, int ymax) {
         super();
         
         this.currentHeading = currentHeading;
@@ -58,7 +71,11 @@ public class Snake {
         this.allLocations = allLocations;
         this.solution = solution;
         
-        this.score = computeScore();
+        this.xmin = xmin;
+        this.xmax = xmax;
+        this.ymin = ymin;
+        this.ymax = ymax;
+        this.score = Math.max(xmax - xmin, ymax - ymin);
     }
 
     /**
@@ -101,7 +118,12 @@ public class Snake {
         } else {
             Set<Point> nextLocations = new HashSet<>(allLocations);
             nextLocations.add(currentLocation);
-            result = Optional.of(new Snake(currentHeading, nextLocation, nextLocations, solution));
+            int nextXmin = Math.min(xmin, nextLocation.getX());
+            int nextXmax = Math.max(xmax, nextLocation.getX());
+            int nextYmin = Math.min(ymin, nextLocation.getY());
+            int nextYmax = Math.max(ymax, nextLocation.getY());
+            
+            result = Optional.of(new Snake(currentHeading, nextLocation, nextLocations, solution, nextXmin, nextXmax, nextYmin, nextYmax));
         }
         
         return result;
@@ -115,19 +137,7 @@ public class Snake {
      */
     public Snake turn(TurnDirection turnDirection) {
         Direction nextHeading = currentHeading.turn(turnDirection);
-        return new Snake(nextHeading, currentLocation, allLocations, solution + turnDirection.getCharacter());
-    }
-
-    /** @return size of the snake's bounding square */
-    private int computeScore() {
-        int xmin = 0, ymin = 0, xmax = 0, ymax = 0;
-        for (Point coordinate : allLocations) {
-            xmax = Math.max(xmax, coordinate.getX());
-            xmin = Math.min(xmin, coordinate.getX());
-            ymax = Math.max(ymax, coordinate.getY());
-            ymin = Math.min(ymin, coordinate.getY());
-        }
-        return Math.max(xmax - xmin, ymax - ymin);
+        return new Snake(nextHeading, currentLocation, allLocations, solution + turnDirection.getCharacter(), xmin, xmax, ymin, ymax);
     }
     
     /** @return size of the snake's bounding square */
