@@ -3,7 +3,7 @@ package nl.mvdr.snake;
 import java.util.function.Supplier;
 
 import nl.mvdr.snake.model.Snake;
-import nl.mvdr.snake.solver.LimitedBruteForceSolver;
+import nl.mvdr.snake.solver.BruteForceSolver;
 import nl.mvdr.snake.ui.SnakeVisualiser;
 
 /** Main class. */
@@ -19,7 +19,7 @@ public class PrimeSnakeSolver {
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
         
-        Supplier<Snake> solver = new LimitedBruteForceSolver(SNAKE_SIZE);
+        Supplier<Snake> solver = new BruteForceSolver(SNAKE_SIZE);
         
         Snake snake = solver.get();
         

@@ -18,7 +18,7 @@ import nl.mvdr.snake.util.Primes;
  * 
  * @author Martijn van de Rijdt
  */
-public class LimitedBruteForceSolver implements Supplier<Snake> {
+public class BruteForceSolver implements Supplier<Snake> {
     /** Comparator for increasing score values. */
     private static final Comparator<Snake> SCORE_COMPARATOR = (left, right) -> Integer.compare(left.getScore(), right.getScore());
     
@@ -36,7 +36,7 @@ public class LimitedBruteForceSolver implements Supplier<Snake> {
      * 
      * @param length intended length for the snake
      */
-    public LimitedBruteForceSolver(int length) {
+    public BruteForceSolver(int length) {
         super();
         
         if (length < 2) {
