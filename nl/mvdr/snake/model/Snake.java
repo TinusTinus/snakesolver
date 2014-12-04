@@ -29,10 +29,10 @@ public class Snake {
     /** Maximum y coordinate. */
     private final int ymax;
     
-    /** Cached score value for this snake. */
+    /** Size of the snake's bounding square. */
     private final int score;
 
-    /** Constructor. */
+    /** Constructor. Creates a snake consisting of a single 'pixel' at (0, 0), with direction NORTH. */
     public Snake() {
         super();
         
@@ -137,7 +137,8 @@ public class Snake {
      */
     public Snake turn(TurnDirection turnDirection) {
         Direction nextHeading = currentHeading.turn(turnDirection);
-        return new Snake(nextHeading, currentLocation, allLocations, solution + turnDirection.getCharacter(), xmin, xmax, ymin, ymax);
+        String nextSolution = solution + turnDirection.getCharacter();
+        return new Snake(nextHeading, currentLocation, allLocations, nextSolution, xmin, xmax, ymin, ymax);
     }
     
     /** @return size of the snake's bounding square */

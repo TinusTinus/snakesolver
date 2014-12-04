@@ -36,7 +36,7 @@ public class Primes {
         }
 
         // Return the gaps:
-        List<Integer> gaps = new ArrayList<Integer>();
+        List<Integer> gaps = new ArrayList<>();
         int lastPrime = 0;
         for (int i = 2; i <= n; i++) {
             if (isPrime[i]) {
