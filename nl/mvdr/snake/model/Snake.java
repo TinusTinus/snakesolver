@@ -62,6 +62,10 @@ public class Snake {
      * @param currentLocation current location
      * @param allLocations all locations
      * @param solution solution
+     * @param xmin minimum x coordinate
+     * @param xmax maxumum x coordinate
+     * @param ymin minimum y coordinate
+     * @param ymax maximum y coordinate
      */
     private Snake(Direction currentHeading, Point currentLocation, Set<Point> allLocations, String solution, int xmin, int xmax, int ymin, int ymax) {
         super();
