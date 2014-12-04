@@ -1,7 +1,7 @@
 Snake Solver
 ============
 
-An answer to Java Magazine 05 2014's "Snake" Code Challenge. Based on the solver code snippet at http://bit.ly/priemslang.
+An answer to Java Magazine 05 2014's "Snake" Code Challenge. Based on the [solver code snippet] (http://bit.ly/priemslang).
 
 I suspect this problem may be NP-complete (although I haven't attempted to prove or disprove it).
 
@@ -10,8 +10,8 @@ This program uses a brute force method to compute a solution to the problem. The
 Classes of interest
 -------------------
 
-PrimeSnakeSolver: main class, run this to start the computation.
-BruteForceSolver: contains the actual algorithm to find a solution.
+* [PrimeSnakeSolver] (https://github.com/TinusTinus/snakesolver/blob/master/src/main/java/nl/mvdr/snake/PrimeSnakeSolver.java): main class, run this to start the computation.
+* [BruteForceSolver] (https://github.com/TinusTinus/snakesolver/blob/master/src/main/java/nl/mvdr/snake/solver/BruteForceSolver.java): contains the actual algorithm to find a solution.
 
 Best result
 -----------
