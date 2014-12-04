@@ -1,7 +1,7 @@
 Snake Solver
 ============
 
-An answer to Java Magazine 05 2014's "Snake" Code Challenge.
+An answer to Java Magazine 05 2014's "Snake" Code Challenge. Based on the solver code snippet at http://bit.ly/priemslang.
 
 I suspect this problem may be NP-complete (although I haven't attempted to prove or disprove it).
 
