@@ -6,9 +6,9 @@ package nl.mvdr.snake.model;
  * @author Martijn van de Rijdt
  */
 public enum TurnDirection {
-    /** Clockwise. */
-    LEFT('L'),
     /** Counter-clockwise. */
+    LEFT('L'),
+    /** Clockwise. */
     RIGHT('R');
     
     /** Character representing this direction in a solution string. */
